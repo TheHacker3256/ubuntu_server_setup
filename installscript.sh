@@ -5,9 +5,9 @@ sudo apt update
 
 #apache install
 echo "install apache 2"
-read apache
+read apache2
 
-if [ "$apache" = "Y" ];
+if [ "$apache2" = "Y" ];
 then
 sudo apt install apache2 \
                  ghostscript \
