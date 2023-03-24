@@ -7,22 +7,12 @@ sudo apt update
 echo "install apache 2"
 read apache2
 
-if [ "$apache2" = "Y" ];
+if [ "$apache2" = "y" ];
 then
 sudo apt install apache2 \
                  ghostscript \
-                 libapache2-mod-7.9 \
-                 mysql-server \
-                 7.9 \
-                 7.9-bcmath \
-                 7.9-curl \
-                 7.9-imagick \
-                 7.9-intl \
-                 7.9-json \
-                 7.9-mbstring \
-                 7.9-mysql \
-                 7.9-xml \
-                 7.9-zip
+                 mysql-server -y
+
 
 fi
 
@@ -30,9 +20,9 @@ fi
 echo "install wordpress"
 read wordpress
 
-if [ "$wordpress" = "Y" ];
+if [ "$wordpress" = "y" ];
 then
-##paste wordpress install here
+echo "paste wordpress installation here"
 
 fi
 
@@ -40,16 +30,16 @@ fi
 echo "install nextcloud"
 read nextcloud
 
-if [ "$nextcloud" = "Y" ];
+if [ "$nextcloud" = "y" ];
 then
+sudo apt install php7.4 php7.4-gd php7.4-sqlite3 php7.4-curl php7.4-zip php7.4-xml php7.4-mbstring php7.4-mysql php7.4-bz2 php7.4-intl php-smbclient php7.4-imap php7.4-gmp php7.4-bcmath php7.4-imagick libapache2-mod-php7.4
+sudo systemctl restart apache2
+
 sudo a2enmod rewrite
 sudo a2enmod env
 sudo a2enmod headers
 sudo a2enmod dir
 sudo a2enmod mime
-
-sudo apt install php7.4 php7.4-gd php7.4-sqlite3 php7.4-curl php7.4-zip php7.4-xml php7.4-mbstring php7.4-mysql php7.4-bz2 php7.4-intl php-smbclient php7.4-imap php7.4-gmp php7.4-bcmath php7.4-imagick libapache2-mod-php7.4
-sudo systemctl restart apache2
 
 cd /var/www/
 sudo wget https://download.nextcloud.com/server/releases/latest.tar.bz2
@@ -69,14 +59,15 @@ fi
 echo "install docker"
 read docker
 
-if [ "$docker" = "Y" ];
+if [ "$docker" = "y" ];
 then
 sudo apt install docker.io -y
 echo "install heimdall"
 read heimdall
 
+fi
 #heimdall install
-if [ "$heimdall" = "Y" ];
+if [ "$heimdall" = "y" ];
 then
 sudo docker volume create heimdall
 sudo docker run \
@@ -88,17 +79,16 @@ sudo docker run \
 -p 406:433 \
 -v heimdall:/config \
 --restart unless-stopped \
-linuxserver/heimdall -d
+-d \
+linuxserver/heimdall
 
 fi
 
 #portainer install
-if [ "$docker" = "Y" ];
-then
 echo "install portainer"
 read portainer
 
-if [ "$portainer" = "Y" ];
+if [ "$portainer" = "y" ];
 then
 sudo docker run -d -p 9000:9000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
 
@@ -108,6 +98,8 @@ fi
 echo "install jellyfin"
 read jellyfin
 
-if [ "$jellyfin" = "Y" ];
+if [ "$jellyfin" = "y" ];
 then
 curl https://repo.jellyfin.org/install-debuntu.sh | sudo bash
+
+fi
