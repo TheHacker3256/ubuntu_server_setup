@@ -1,7 +1,17 @@
 # ubuntu_server_setup
 
-cd ./ubuntu_server_setup
+'''
+'wget https://github.com/TheHacker3256/ubuntu_server_setup.git'
+'''
 
-sudo chmod +x installscript.sh
+'''
+'cd ./ubuntu_server_setup'
+'''
 
-./installscript.sh
+'''
+'sudo chmod +x installscript.sh'
+'''
+
+'''
+'./installscript.sh'
+'''
